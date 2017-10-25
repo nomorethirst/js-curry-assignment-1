@@ -1,5 +1,6 @@
 'use strict'
 
+// returns {name: "aname", price: 0.0}
 const listing =
   (name, price) => ({
     name,
@@ -24,9 +25,14 @@ const listedPrice =
  */
 const calculateTotals =
   listings =>
-    carts => {
-      // TODO
-    }
+    carts => carts
+              .map( cart => {
+                      return {
+                        customer: cart.customer,
+                        total: cart.items.reduce( (sum, cur) => sum + listedPrice(listings[listings.findIndex(l => l.name == cur)])(cur), 0)
+                    }
+              })
+
 
 module.exports = {
   listing,
